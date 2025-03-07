@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sudo apt update
+sudo apt install gnupg ca-certificates unzip mono-devel fzf silversearcher-ag software-properties-common ripgrep gcc make g++ tmux curl wget git build-essential

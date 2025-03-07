@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+sudo apt install stow
+
+mkdir $HOME/dotfiles
+git clone https://github.com/blalockma/dotfiles.git $HOME/dotfiles
+
+rm $HOME/.zshrc
+
+cd $HOME/dotfiles
+./setup-env.sh
+
+cd -
