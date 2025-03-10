@@ -4,16 +4,32 @@ git config --global user.email "15042748+blalockma@users.noreply.github.com"
 git config --global user.name "Mason Blalock"
 
 ### Lazygit ###
-LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep '"tag_name":' |  sed -E 's/.*"v*([^"]+)".*/\1/')
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-sudo tar xf lazygit.tar.gz -C /usr/local/bin lazygit
-rm lazygit.tar.gz
-https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.6.1/gcm-linux_amd64.2.6.1.deb
+if uname -m | grep -q "aarch64"; then
+    echo "Skipping GCM as I need to build from source (arm64 isn't available in releases)"
+    #wget https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.6.1/gcm-linux_amd64.2.6.1.deb
+    #sudo dpkg -i gcm-linux_amd64.2.6.1.deb
+    #rm gcm-linux_amd64.2.6.1.deb
+    #git-credential-manager configure
+    #git config --global credential.credentialStore cache
+else
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep '"tag_name":' |  sed -E 's/.*"v*([^"]+)".*/\1/')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    sudo tar xf lazygit.tar.gz -C /usr/local/bin lazygit
+    rm lazygit.tar.gz
+    https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.6.1/gcm-linux_amd64.2.6.1.deb
+fi
 
 ### Git Credential Manager ###
 sudo apt install libice6 libsm6
-wget https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.6.1/gcm-linux_amd64.2.6.1.deb
-sudo dpkg -i gcm-linux_amd64.2.6.1.deb
-git-credential-manager configure
-git config --global credential.credentialStore cache
-rm gcm-linux_amd64.2.6.1.deb
+if uname -m | grep -q "aarch64"; then
+    echo "Skipping GCM as I need to build from source (arm64 isn't available in releases)"
+    #wget https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.6.1/gcm-linux_amd64.2.6.1.deb
+    #sudo dpkg -i gcm-linux_amd64.2.6.1.deb
+    #rm gcm-linux_amd64.2.6.1.deb
+    #git-credential-manager configure
+    #git config --global credential.credentialStore cache
+else
+    wget https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.6.1/gcm-linux_arm64.2.6.1.deb
+    sudo dpkg -i gcm-linux_arm64.2.6.1.deb
+    rm gcm-linux_arm64.2.6.1.deb
+fi
