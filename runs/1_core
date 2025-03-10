@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
+RUN DEBIAN_FRONTEND=noninteractive
 sudo apt update
 sudo apt install -y gnupg ca-certificates unzip mono-devel fzf silversearcher-ag software-properties-common ripgrep gcc make g++ tmux curl wget git build-essential
