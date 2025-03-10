@@ -3,13 +3,18 @@
 sudo apt install libfuse2
 
 if uname -m | grep -q "aarch64"; then
-    wget https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-arm64.appimage
-    sudo mv nvim-linux-arm64.appimage /usr/bin/nvim
+    sudo apt-get install ninja-build gettext cmake curl build-essential
+    git clone https://github.com/neovim/neovim
+    cd neovim
+    git checkout stable
+    make CMAKE_BUILD_TYPE=RelWithDebInfo
+    sudo make install
+    sudo mv build/bin/nvim /usr/bin/nvim
 else
     wget https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.appimage
     sudo mv nvim-linux-x86_64.appimage /usr/bin/nvim
 fi
 
-sudo chmod +x /usr/bin/nvim
+
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
