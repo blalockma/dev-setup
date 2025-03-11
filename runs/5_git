@@ -23,5 +23,5 @@ sudo apt-get update && \
 sudo apt-get install -y dotnet-sdk-8.0
 
 dotnet tool install -g git-credential-manager
-git-credential-manager configure
+~/.dotnet/tools/git-credential-manager configure
 git config --global credential.credentialStore cache
